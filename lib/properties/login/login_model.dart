@@ -16,10 +16,9 @@ class LoginModel extends ChangeNotifier {
     }
 
     final FirebaseAuth _auth = FirebaseAuth.instance;
-    final User user = (await _auth.signInWithEmailAndPassword(
+    await _auth.signInWithEmailAndPassword(
       email: email,
       password: password,
-    ))
-        .user;
+    );
   }
 }

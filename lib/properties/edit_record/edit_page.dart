@@ -13,7 +13,7 @@ class EditPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final recordController = TextEditingController();
-    recordController.text = record.xPower.toString();
+    final String oldRecord = record.xPower.toString();
 
     //String name;
 
@@ -31,7 +31,7 @@ class EditPage extends StatelessWidget {
                 TextField(
                   autofocus: true,
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(hintText: 'XPを入力'),
+                  decoration: InputDecoration(hintText: oldRecord),
                   controller: recordController,
                   onChanged: (text) {
                     model.record = int.parse(text);

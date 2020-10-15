@@ -106,8 +106,8 @@ class RecordListPage extends StatelessWidget {
               Consumer<RecordListModel>(builder: (context, model, child) {
             return FloatingActionButton(
               child: Icon(Icons.add),
-              onPressed: () {
-                model.addRecord();
+              onPressed: () async {
+                await Navigator.pushNamed(context, '/add');
                 model.fetchRecords();
               }, // onPress
             );
