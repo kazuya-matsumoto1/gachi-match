@@ -7,8 +7,7 @@ class RecordListModel extends ChangeNotifier {
   List<Record> records = [];
   String userName = '';
   int xPower;
-  int winCount;
-  int loseCount;
+  // int ruleId;
   String userId;
   Timestamp createdAt;
   Future fetchRecords() async {
@@ -16,6 +15,7 @@ class RecordListModel extends ChangeNotifier {
     final docs = await FirebaseFirestore.instance
         .collection('records')
         .where('userId', isEqualTo: user.uid)
+        .orderBy('createdAt', descending: true)
         .get();
     final records = docs.docs.map((doc) => Record(doc)).toList();
     this.records = records;
@@ -45,8 +45,7 @@ class RecordListModel extends ChangeNotifier {
     User user = FirebaseAuth.instance.currentUser;
     await FirebaseFirestore.instance.collection('records').add({
       'xPower': 0,
-      'winCount': 0,
-      'loseCount': 0,
+      // 'ruleId': 0,
       'createdAt': Timestamp.now(),
       'userId': user.uid,
     });

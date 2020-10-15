@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gachi_match/domain/record.dart';
+import 'package:gachi_match/properties/edit_record/edit_page.dart';
 
 import 'package:gachi_match/properties/list_page/ListModel.dart';
 import 'package:intl/intl.dart';
@@ -20,22 +21,38 @@ class RecordListPage extends StatelessWidget {
             //   onPressed: () {},
             // ),
             title: Consumer<RecordListModel>(builder: (context, model, child) {
+              model.records.forEach((record) {
+                print(record.createdAt.toDate().toLocal().timeZoneName);
+                //print(Intl.defaultLocale);
+              });
               return Text(model.userName);
             }),
           ),
           body: Consumer<RecordListModel>(
             builder: (context, model, child) {
               final records = model.records;
+              // DateTime date = DateTime.now().toLocal();
+              // print(date);
+              // print(date.timeZoneName);
               final listTiles = records
                   .map((record) => ListTile(
                         // leading: Icon(Icons.thumb_up),
                         title: Text('${record.xPower.toString()}'),
-                        subtitle: Text(DateFormat('MM月dd日 hh時mm分')
-                            .format(record.createdAt.toDate())
+                        subtitle: Text(DateFormat('MM月dd日 HH時mm分')
+                            .format(record.createdAt.toDate().toLocal())
                             .toString()),
                         trailing: IconButton(
                           icon: Icon(Icons.edit),
                           onPressed: () async {
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EditPage(
+                                  record: record,
+                                ),
+                                fullscreenDialog: true,
+                              ),
+                            );
                             model.fetchRecords();
                           },
                         ),

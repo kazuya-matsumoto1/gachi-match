@@ -1,12 +1,22 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:gachi_match/properties/add_record/add_record_page.dart';
+import 'package:gachi_match/properties/edit_record/edit_page.dart';
 import 'package:gachi_match/properties/list_page/list_page.dart';
 import 'package:gachi_match/properties/login/login_page.dart';
 import 'package:gachi_match/properties/sign_up/sign_up_page.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
+
+// Future<void> _initialise() async {
+//   await
+
+//   await initializeDateFormatting("ja-JP", null);
+// }
 
 void main() {
-  runApp(MyApp());
+  Intl.defaultLocale = 'ja_JP';
+  initializeDateFormatting('ja-JP', null).then((_) => runApp(MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -22,7 +32,8 @@ class MyApp extends StatelessWidget {
         '/sign_up': (context) => SignUpPage(),
         '/login': (context) => LoginPage(),
         '/list': (context) => RecordListPage(),
-        // '/edit': (context) => EditRecordPage(),
+
+        // '/edit': (context) => EditPage(),
         // '/add': (context) => AddRecordPage(),
       },
       theme: ThemeData(
@@ -89,15 +100,28 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('ガチマッチ戦績記録アプリ'),
-            SizedBox(height: 120),
             Text(
-              'ガチマッチをプレイした時間と、終了時点のXパワーを記録していくことができるアプリです。',
+              'ガチマッチ戦績記録アプリ',
+              style: TextStyle(
+                fontSize: 45,
+                fontWeight: FontWeight.bold,
+              ),
               textAlign: TextAlign.center,
             ),
-            Text(
-              'XPの変化量を意識しながら対戦することで、集中力と勝率も上がるはず。。。',
-              textAlign: TextAlign.center,
+            SizedBox(height: 120),
+            Card(
+              child: Column(
+                children: [
+                  Text(
+                    'ガチマッチをプレイした時間と、終了時点のXパワーを記録していくことができるアプリです。',
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    'XPの変化量を意識しながら対戦することで、集中力と勝率も上がるはず。。。',
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
             ),
             SizedBox(height: 35),
             Row(
