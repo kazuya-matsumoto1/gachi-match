@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "630197918895",
+    "firebase_url": "https://gachi-match.firebaseio.com",
+    "project_id": "gachi-match",
+    "storage_bucket": "gachi-match.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630197918895:android:e79e014fc3f51a7c43885a",
+        "android_client_info": {
+          "package_name": "com.example.gachi_match"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "630197918895-9ba5kd611qplg3l9lhst5c2kqajb2hj2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBu5ggb_8XFVLBDbr07tTkWOGUp7ylNcJ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "630197918895-9ba5kd611qplg3l9lhst5c2kqajb2hj2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
