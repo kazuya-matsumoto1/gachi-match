@@ -9,7 +9,6 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final _mailController = TextEditingController();
     final _passwordController = TextEditingController();
-    bool _showPassword = false;
 
     return ChangeNotifierProvider<LoginModel>(
       create: (_) => LoginModel(),
@@ -24,7 +23,7 @@ class LoginPage extends StatelessWidget {
               child: Column(children: [
                 TextField(
                   autofocus: true,
-                  decoration: InputDecoration(hintText: 'example@kboy.com'),
+                  decoration: InputDecoration(hintText: 'example@example.com'),
                   controller: _mailController,
                   onChanged: (text) {
                     model.email = text;
@@ -46,7 +45,6 @@ class LoginPage extends StatelessWidget {
                     //todo: 登録処理
                     try {
                       await model.login();
-                      // await _showDialog(context, '', 'ログインしました', '/list');
                       Navigator.pushNamed(context, '/list');
                     } catch (e) {
                       print(e.toString());

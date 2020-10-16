@@ -7,14 +7,15 @@ class RecordListModel extends ChangeNotifier {
   List<Record> records = [];
   String userName = '';
   int xPower;
-  // int ruleId;
   String userId;
   Timestamp createdAt;
+  int ruleId = 0;
   Future fetchRecords() async {
     User user = FirebaseAuth.instance.currentUser;
     final docs = await FirebaseFirestore.instance
         .collection('records')
         .where('userId', isEqualTo: user.uid)
+        .where('ruleId', isEqualTo: this.ruleId)
         .orderBy('createdAt', descending: true)
         .get();
     final records = docs.docs.map((doc) => Record(doc)).toList();
@@ -49,5 +50,18 @@ class RecordListModel extends ChangeNotifier {
       'createdAt': Timestamp.now(),
       'userId': user.uid,
     });
+
+    // Future changeRule(int index) async {
+    //   User user = FirebaseAuth.instance.currentUser;
+    //   final docs = await FirebaseFirestore.instance
+    //       .collection('records')
+    //       .where('userId', isEqualTo: user.uid)
+    //   .where('ruleId', isEqualTo: )
+    //       .orderBy('createdAt', descending: true)
+    //       .get();
+    //   final records = docs.docs.map((doc) => Record(doc)).toList();
+    //   this.records = records;
+    //   notifyListeners();
+    // }
   }
 }

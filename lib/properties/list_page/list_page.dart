@@ -3,40 +3,32 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gachi_match/domain/record.dart';
+import 'package:gachi_match/properties/add_record/add_record_page.dart';
 import 'package:gachi_match/properties/edit_record/edit_page.dart';
 
-import 'package:gachi_match/properties/list_page/ListModel.dart';
+import 'package:gachi_match/properties/list_page/liser_model.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class RecordListPage extends StatelessWidget {
+  // RecordListPage({this.ruleId});
+  // final int ruleId;
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<RecordListModel>(
         create: (_) => RecordListModel()..fetchRecords(),
         child: Scaffold(
           appBar: AppBar(
-            // leading: IconButton(
-            //   icon: Icon(Icons.backspace),
-            //   onPressed: () {},
-            // ),
+            // leading: Icon(Icons.logout),
             title: Consumer<RecordListModel>(builder: (context, model, child) {
-              model.records.forEach((record) {
-                print(record.createdAt.toDate().toLocal().timeZoneName);
-                //print(Intl.defaultLocale);
-              });
               return Text(model.userName);
             }),
           ),
           body: Consumer<RecordListModel>(
             builder: (context, model, child) {
               final records = model.records;
-              // DateTime date = DateTime.now().toLocal();
-              // print(date);
-              // print(date.timeZoneName);
               final listTiles = records
                   .map((record) => ListTile(
-                        // leading: Icon(Icons.thumb_up),
                         title: Text('${record.xPower.toString()}'),
                         subtitle: Text(DateFormat('MM月dd日 HH時mm分')
                             .format(record.createdAt.toDate().toLocal())
@@ -44,6 +36,8 @@ class RecordListPage extends StatelessWidget {
                         trailing: IconButton(
                           icon: Icon(Icons.edit),
                           onPressed: () async {
+                            // await Navigator.pushNamed(context, '/edit',
+                            //     arguments: {record: record});
                             await Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -78,36 +72,49 @@ class RecordListPage extends StatelessWidget {
               );
             },
           ),
-          bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.business),
-                label: 'Business',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.school),
-                label: 'School',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.school),
-                label: 'School',
-              ),
-            ],
-            currentIndex: 2,
-            selectedItemColor: Colors.amber[800],
-            onTap: _onItemTapped,
+          bottomNavigationBar: Consumer<RecordListModel>(
+            builder: (context, model, child) {
+              return BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                items: const <BottomNavigationBarItem>[
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.home),
+                    label: 'エリア',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.business),
+                    label: 'ヤグラ',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.school),
+                    label: 'ホコ',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.school),
+                    label: 'アサリ',
+                  ),
+                ],
+                currentIndex: model.ruleId,
+                selectedItemColor: Colors.amber[800],
+                onTap: (index) async {
+                  model.ruleId = index;
+                  await model.fetchRecords();
+                },
+              );
+            },
           ),
           floatingActionButton:
               Consumer<RecordListModel>(builder: (context, model, child) {
             return FloatingActionButton(
               child: Icon(Icons.add),
               onPressed: () async {
-                await Navigator.pushNamed(context, '/add');
+                // int ruleId = model.rule
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          AddRecordPage(ruleId: model.ruleId)),
+                );
                 model.fetchRecords();
               }, // onPress
             );
@@ -169,11 +176,5 @@ class RecordListPage extends StatelessWidget {
         },
       );
     }
-  }
-
-  void _onItemTapped(int index) {
-    int a = 0;
-    a++;
-    print(a);
   }
 }

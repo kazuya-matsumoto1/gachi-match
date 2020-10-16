@@ -2,16 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gachi_match/domain/record.dart';
 import 'package:gachi_match/properties/add_record/add_record_model.dart';
+import 'package:gachi_match/properties/list_page/list_page.dart';
 import 'package:provider/provider.dart';
 
 class AddRecordPage extends StatelessWidget {
-  AddRecordPage({this.record});
-  final Record record;
+  AddRecordPage({this.ruleId});
+  final int ruleId;
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-
     return ChangeNotifierProvider<AddRecordModel>(
       create: (_) => AddRecordModel(),
       child: Consumer<AddRecordModel>(
@@ -32,9 +31,10 @@ class AddRecordPage extends StatelessWidget {
                     RaisedButton(
                         child: Text('投稿'),
                         onPressed: () async {
-                          await model
-                              .addRecord(int.parse(xPowerController.text));
-                          Navigator.pushNamed(context, '/list');
+                          await model.addRecord(
+                              int.parse(xPowerController.text), this.ruleId);
+                          // Navigator.pushNamed(context, '/list');
+                          Navigator.pop(context);
                         }),
                   ],
                 ),

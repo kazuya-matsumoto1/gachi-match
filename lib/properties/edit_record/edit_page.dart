@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gachi_match/domain/record.dart';
+import 'package:gachi_match/properties/list_page/list_page.dart';
 import 'package:gachi_match/properties/login/login_page.dart';
 import 'package:gachi_match/properties/sign_up/signup_model.dart';
 import 'package:provider/provider.dart';
@@ -46,7 +47,9 @@ class EditPage extends StatelessWidget {
                         try {
                           await model.updateBook(record);
                           Navigator.of(context).pop();
-                          Navigator.pushNamed(context, '/list');
+                          // Navigator.of(context).pop();
+                          // Navigator.pushNamed(context, '/list');
+
                           // await _showDialog(context, '新規登録', '登録完了しました');
                         } catch (e) {
                           _showDialog(context, '保存失敗', e.toString());

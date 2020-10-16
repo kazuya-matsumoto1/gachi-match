@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         '/list': (context) => RecordListPage(),
 
         // '/edit': (context) => EditPage(),
-        '/add': (context) => AddRecordPage(),
+        // '/add': (context) => AddRecordPage(),
       },
       theme: ThemeData(
         // This is the theme of your application.
