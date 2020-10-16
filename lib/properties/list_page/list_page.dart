@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gachi_match/domain/record.dart';
@@ -15,6 +16,7 @@ class RecordListPage extends StatelessWidget {
   // final int ruleId;
   @override
   Widget build(BuildContext context) {
+    Firebase.initializeApp();
     return ChangeNotifierProvider<RecordListModel>(
         create: (_) => RecordListModel()..fetchRecords(),
         child: Scaffold(
